@@ -15,7 +15,7 @@
 </template>
 
 <script>
-    import {mapState, mapGetters} from 'vuex'
+    import {mapState, mapGetters} from "vuex"
     
     export default {
         data () {
@@ -31,10 +31,10 @@
         },
         computed: {
             ...mapState([
-                'count'
+                "count"
             ]),
             ...mapGetters([
-                'author'
+                "author"
             ]),
         }
     }

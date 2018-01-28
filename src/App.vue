@@ -3,7 +3,7 @@
         <el-header height="60px">Header</el-header>
         <el-container>
             <el-aside width="200px">
-                <el-menu background-color="transparent" active-text-color="#f13c74" :router="true">
+                <el-menu background-color="transparent" :router="true" :default-active="defaultRouter">
                     <el-menu-item :key="item.index" :index="item.router" v-for="item in menus">
                         <i class="el-icon-tickets"></i>
                         <span slot="title">{{item.title}}</span>
@@ -14,7 +14,7 @@
                 <router-view/>
             </el-main>
         </el-container>
-        <el-footer height="40px">爱柯南后台系统 - 静茹♂鱼</el-footer>
+        <el-footer height="40px">爱柯南后台管理系统 - 静茹♂鱼</el-footer>
     </el-container>
 </template>
 
@@ -26,26 +26,30 @@ export default {
             menus: [
                 {
                     index: "1",
-                    title: "菜单一",
+                    title: "漫画管理",
                     router: "/opus"
                 },
                 {
                     index: "2",
-                    title: "菜单二",
+                    title: "章节管理",
                     router: "/chapter/0"
                 },
                 {
                     index: "3",
-                    title: "菜单三",
+                    title: "图片管理",
                     router: "/picture/0"
                 }
-            ]
+            ],
+            defaultRouter: this.$router.currentRoute.fullPath
         };
     },
     methods: {
-        openMenu: function(index){
+        openMenu: function(index) {
             console.info("打开", arguments);
         }
+    },
+    mounted: function() {
+        //console.info(this.$router.currentRoute);
     }
 };
 </script>

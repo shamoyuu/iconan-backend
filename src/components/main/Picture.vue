@@ -7,10 +7,10 @@
 
 <script>
     export default {
-        name: 'Picture',
+        name: "Picture",
         data () {
             return {
-                msg: 'Welcome to Your Vue.js App'
+                msg: "Welcome to Your Vue.js App"
             }
         }
     }
