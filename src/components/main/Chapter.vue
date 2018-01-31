@@ -3,14 +3,15 @@
         <el-input placeholder="请输入内容" v-model="table.searchWord" @change="searchWordChange" class="input-with-select" :clearable="true" size="lage">
             <el-select v-model="table.searchType" @change="searchTypeChange" slot="prepend" placeholder="请选择" class="search-select">
                 <el-option label="章节ID" value="id"></el-option>
+                <el-option label="排序" value="position"></el-option>
                 <el-option label="章节名" value="name"></el-option>
             </el-select>
             <el-button @click="searchTypeChange" slot="append" icon="el-icon-search">搜索</el-button>
         </el-input>
-        <el-table :data="tableData" @sort-change="sortChange" size="medium" v-loading="tableLoading" :default-sort="{prop: 'date', order: 'descending'}" border style="width: 100%">
-            <el-table-column prop="id" label="ID" sortable="custom">
+        <el-table :data="tableData" @sort-change="sortChange" size="medium" v-loading="tableLoading" :default-sort="{prop: 'id'}" border style="width: 100%">
+            <el-table-column prop="id" label="ID" sortable="custom" width="70px">
             </el-table-column>
-            <el-table-column prop="opusid" label="漫画ID" sortable="custom">
+            <el-table-column prop="opusid" label="漫画ID" sortable="custom" width="120px">
             </el-table-column>
             <el-table-column prop="name" label="章节名" sortable="custom">
             </el-table-column>
@@ -43,7 +44,7 @@
                     <el-input v-model="form.name" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="排序">
-                    <el-input-number v-model="form.position" style="width:100%" :min="0" :max="100"></el-input-number>
+                    <el-input-number v-model="form.position" style="width:100%" :min="0"></el-input-number>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
@@ -73,7 +74,7 @@ export default {
                 count: 0,
                 currentPage: 1,
                 pageSize: 10,
-                orderby: "",
+                orderby: "id",
                 sort: "ASC",
                 searchWord: "",
                 searchType: "id",
@@ -141,7 +142,6 @@ export default {
     },
     mounted: function() {
         this.loadTable();
-        console.info(this.$route.params.opusid);
     }
 };
 </script>
