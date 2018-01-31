@@ -9,16 +9,16 @@ const state = {
 };
 
 const mutations = {
-    add(state){
+    add(state) {
         state.count += 1;
     },
-    reduce(state){
+    reduce(state) {
         state.count -= 1;
     }
 };
 
 const getters = {
-    author (state) {
+    author(state) {
         return "❤❤❤" + state.author + "❤❤❤";
     }
 };

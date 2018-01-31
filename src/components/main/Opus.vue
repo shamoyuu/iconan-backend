@@ -10,13 +10,13 @@
             <el-button @click="searchTypeChange" slot="append" icon="el-icon-search">搜索</el-button>
         </el-input>
         <el-table :data="tableData" @sort-change="sortChange" size="medium" v-loading="tableLoading" :default-sort="{prop: 'date', order: 'descending'}" border style="width: 100%">
-            <el-table-column prop="id" label="ID" sortable="custom">
+            <el-table-column prop="id" label="ID" sortable="custom" width="70px">
             </el-table-column>
             <el-table-column prop="name" label="漫画名" sortable="custom">
             </el-table-column>
             <el-table-column prop="author" label="作者" sortable="custom">
             </el-table-column>
-            <el-table-column prop="cover" label="封面">
+            <el-table-column prop="cover" label="封面" width="90px">
                 <template slot-scope="scope">
                     <img @click="$imageShow.show(scope.row.cover)" class="cover-image" :src="scope.row.cover + '@!h70'">
                 </template>
@@ -33,9 +33,16 @@
                     </el-popover>
                 </template>
             </el-table-column>
+            <el-table-column prop="createtime" label="创建时间" sortable="custom">
+            </el-table-column>
+            <el-table-column prop="updatetime" label="修改时间" sortable="custom">
+            </el-table-column>
             <el-table-column label="操作">
                 <template slot-scope="scope">
-                    <el-button size="mini" @click="editRow(scope.$index, scope.row)" icon="el-icon-edit"></el-button>
+                    <el-button-group>
+                        <el-button size="mini" @click="editRow(scope.$index, scope.row)" icon="el-icon-edit"></el-button>
+                        <el-button size="mini" @click="checkRow(scope.$index, scope.row)" icon="el-icon-view"></el-button>
+                    </el-button-group>
                 </template>
             </el-table-column>
         </el-table>
@@ -116,30 +123,25 @@ export default {
             }
         },
         searchWordChange: function(searchWord) {
-            console.info("searchWordChange", arguments);
             this.table.currentPage = 1;
             this.table.searchWord = searchWord;
             this.loadTable();
         },
         sortChange: function(order) {
-            console.info("sortChange", arguments);
             this.table.orderby = order.prop;
             this.table.sort = order.order == "ascending" ? "ASC" : "DESC";
             this.loadTable();
         },
         pageChange: function(currentPage) {
-            console.info("pageChange", currentPage);
             this.table.currentPage = currentPage;
             this.loadTable();
         },
         editRow: function(index, opus) {
             this.form = this.$lodash.cloneDeep(opus);
             this.showEditDialog = true;
-            console.info("editRow", arguments);
         },
-        deleteRow: function(order) {
-            this.$message.error("错了哦，这是一条错误消息");
-            console.info("deleteRow", arguments);
+        checkRow: function(index, opus) {
+            this.$router.push("/chapter/" + opus.id);
         },
         loadTable: function() {
             let that = this;
@@ -147,7 +149,6 @@ export default {
             that.$api
                 .get("opus/getopus", that.table)
                 .then(function(data) {
-                    console.info("成功", data);
                     that.tableData = data.list;
                     that.table.count = data.count;
                 })
@@ -155,9 +156,6 @@ export default {
                 .finally(function() {
                     that.tableLoading = false;
                 });
-        },
-        onFormFileUploadSuccess: function() {
-            console.info(arguments);
         },
         fileupload: function(event) {
             event.preventDefault();
@@ -171,7 +169,6 @@ export default {
                 that.$api
                     .file("opus/upload", formData)
                     .then(function(data) {
-                        console.info("文件上传完成", arguments);
                         that.form.cover = data;
                         that.file = "";
                     })
@@ -189,7 +186,6 @@ export default {
             that.$api
                 .post("opus/updateopus", that.form)
                 .then(function() {
-                    console.info("editOpus完成");
                     that.showEditDialog = false;
                     that.loadTable();
                 })
