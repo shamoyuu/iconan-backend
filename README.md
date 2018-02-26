@@ -1,20 +1,19 @@
 # iconan-backend
 
 > 爱柯南APP后台系统
+  
+> Vue + VueRouter + Vuex + axios + elementui
 
 ## Build Setup
 
 ``` bash
-# install dependencies
+# 初始化
 npm install
 
-# serve with hot reload at localhost:8080
+# 启动开发 localhost:8080
 npm run dev
 
-# build for production with minification
+# 构建
 npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
 
